@@ -1,0 +1,37 @@
+---
+- name: Webservers playbook
+  hosts: vm1
+  become: yes
+
+  tasks:
+
+    - name: Install Java 21
+      yum:
+        name: java-21-openjdk
+        state: present
+
+    - name: Add Jenkins repository
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+
+    - name: Import Jenkins GPG key
+      rpm_key:
+        state: present
+        key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+
+    - name: Start and enable Jenkins service
+      systemd:
+        name: jenkins
+        enabled: yes
+        state: started
+
+    - name: Install Git
+      yum:
+        name: git
+        state: present

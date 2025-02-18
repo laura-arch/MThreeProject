@@ -1,0 +1,38 @@
+---
+- name: install mysqld_exporter and node_exporter
+  hosts: vm1
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: Install unzip
+      ansible.builtin.package:
+        name: unzip
+        state: present
+
+    - name: Download mysqld_exporter
+      ansible.builtin.get_url:
+        url: https://github.com/prometheus/mysqld_exporter/releases/download/v0.16.0/mysqld_exporter-0.16.0.windows-amd64.zip
+        dest: /root/mysqld_exporter-0.16.0.windows-amd64.zip
+
+    - name: Extract mysqld_exporter zip file
+      ansible.builtin.command:
+        cmd: unzip -o /root/mysqld_exporter-0.16.0.windows-amd64.zip -d /root/
+
+    - name: Start mysqld_exporter
+      shell: nohup /root/mysqld_exporter-0.16.0.windows-amd64/mysqld_exporter.exe > /dev/null 2>&1 &
+
+
+    - name: Download node_exporter
+      ansible.builtin.get_url:
+        url: https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
+        dest: /root/node_exporter-1.9.0.linux-amd64.tar.gz
+
+    - name: Extract node_exporter tarball
+      ansible.builtin.unarchive:
+        src: /root/node_exporter-1.9.0.linux-amd64.tar.gz
+        dest: /root/
+        remote_src: yes
+
+    - name: Start node_exporter
+      shell: nohup /root/node_exporter-1.9.0.linux-amd64/node_exporter > /dev/null 2>&1 &
