@@ -6,7 +6,7 @@ import mysql.connector
 import subprocess
 
 # MySQL Connection Details (vm_2)
-MYSQL_HOST = "192.168.1.67"
+MYSQL_HOST = "VM2"
 MYSQL_USER = "stressUser"
 MYSQL_PASS = "Sadika"
 MYSQL_DB = "test"
