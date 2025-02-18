@@ -44,4 +44,13 @@ groups:
           summary: "High MySQL Connections on {{ $labels.instance }}"
           description: "MySQL connections excee."
 
-
+      
+        # Alert if Network Usage Exceeds 60%
+      - alert: HighNetworkUsage
+        expr: ((rate(node_network_transmit_bytes_total[30s]) + rate(node_network_receive_bytes_total[30s])) * 8) / node_network_speed_bytes * 100 > 60
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Network Usage"
+          description: "Network usage on instance {{ $labels.instance }} has exceeded 60% of total bandwidth capacity."
