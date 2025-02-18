@@ -2,7 +2,8 @@
 
 ### By Laura, Naomi, Sadika, Zainab
 
-# How to use:
+
+# 💻 How to use:
 
 ## How to run stress tests
 - create a database on VM 2 called test
