@@ -2,6 +2,25 @@
 
 ### By Laura, Naomi, Sadika, Zainab
 
+# How to use:
+
+## How to run stress tests
+- create a database on VM 2 called test
+- create a user with root privileges who can access the database from any machine
+- create a table called stress_table
+- Install dependencies:
+  - `pip install mysql-connector-python`
+  - `yum install iperf3`
+  - `yum install stress `
+  - `yum install stress-ng`
+- update details inside stresstest.py:
+  - MYSQL_HOST should point to the IP address for your own VM2
+- run `python stresstest.py`
+
+
+
+# Our Steps:
+
 ## Part 1: Creating the machines
 
 - Create 3 VMs - VM0, VM1, VM2
