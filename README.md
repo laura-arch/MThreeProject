@@ -6,8 +6,12 @@
 
 ## How to run stress tests
 - create a database on VM 2 called test
-- create a user with root privileges who can access the database from any machine
+  - CREATE USER 'user'@'%' IDENTIFIED BY 'YourPassword';
 - create a table called stress_table
+  - CREATE TABLE stress_table ( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), value INT );
+- create a user with root privileges who can access the database from any machine
+  - GRANT ALL PRIVILEGES ON databaseName.* TO 'user'@'%' WITH GRANT OPTION;
+  - FLUSH PRIVILEGES;
 - Install dependencies:
   - `pip install mysql-connector-python`
   - `yum install iperf3`
