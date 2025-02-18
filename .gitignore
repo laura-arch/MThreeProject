@@ -3,3 +3,12 @@ VM2key
 VM0key.pub
 VM2key.pub
 
+promtool
+
+
+LICENSE
+NOTICE
+alertmadata
+prometheus
+alertmanager-0.28.0.linux-amd64
+alertmanager-0.28.0.linux-amd64.tar.gz

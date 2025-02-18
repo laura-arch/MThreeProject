@@ -1,0 +1,47 @@
+groups:
+  - name: stress_alerts
+    rules:
+
+
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 60
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High Memory Usage on {{ $labels.instance }}"
+          description: "Memory usage exc."
+
+
+
+      - alert: HighDiskUsage
+        expr: (node_filesystem_used_bytes{fstype!=\"tmpfs\", mountpoint!=\"/boot\"} / node_filesystem_size_bytes{fstype!=\"tmpfs\", mountpoint!=\"/boot\"}) * 100 > 60
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High Disk Usage on {{ $labels.instance }}"
+          description: "Disk usage exceeded."
+
+
+
+      - alert: HighCPUUsage
+        expr: (100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[1m])) * 100)) > 60
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU Usage on {{ $labels.instance }}"
+          description: "CPU usage exceeded."
+
+
+      - alert: HighMySQLConnections
+        expr: (mysql_global_status_threads_connected / mysql_global_variables_max_connections) * 100 > 60
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High MySQL Connections on {{ $labels.instance }}"
+          description: "MySQL connections excee."
+
+
