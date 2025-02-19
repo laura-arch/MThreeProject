@@ -51,6 +51,21 @@ https://manpages.ubuntu.com/manpages/xenial/man1/stress-ng.1.html
 ## Part 5: Configuration Management using Ansible
 
 - Yum install ansible
+- Created an inventory of the vms used
+- 
+![image](https://github.com/user-attachments/assets/8fa72d08-a575-4800-8af7-a3794c99955f)
+
+- Created playbooks: webservers.yaml & exporters.yaml
+- 
+![image](https://github.com/user-attachments/assets/61e79481-a6ad-4929-abac-75fe49540e72) 
+
+![image](https://github.com/user-attachments/assets/b074786a-ed5f-4d42-b14b-9e67eb928d88)
+- Playbooks confirurations were consistent across the vms after deployment using
+- ansible-playbook -i nodes webservers.yaml &
+- ansible-playbook -i nodes exporters.yaml
+-  Deployed to automate the installation of required software on the vms
+
+
 
 ## Part 6: Containerising our Python script using Docker
 
