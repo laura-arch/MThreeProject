@@ -1,0 +1,21 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stresstest-dp
+  labels:
+    app: stresstest
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stresstest
+  template:
+    metadata:
+      labels:
+        app: stresstest
+    spec:
+      containers:
+      - name: stresstest
+        image: lauraarch/stresstest:latest
+        imagePullPolicy: Always
