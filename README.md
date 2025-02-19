@@ -156,8 +156,16 @@ minikube kubectl -- exec -it stresstest-dp-xyz -- /bin/bash
 
 Need to configure mysqld_exporter to link the database in VM2:
 - nano /etc/.mysqld_exporter.cnf
+Add the following to cnf file:
+  - [client]
+  - user=userName of database 
+  - password=password of database
+  - host=ip address of server that stores the database
+
+Execution rights on file:
 - chmod 600 /etc/.mysqld_exporter.cnf
-Run the mysqld exporter with config 
+
+Run the mysqld exporter with config file
 - mysqld_exporter --config.my-cnf=/etc/.mysqld_exporter.cnf
 can create a systemd file instead running like this ^^
 
