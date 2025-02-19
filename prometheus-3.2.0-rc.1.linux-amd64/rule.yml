@@ -13,15 +13,14 @@ groups:
           description: "Memory usage exc."
 
 
-
       - alert: HighDiskUsage
-        expr: (node_filesystem_used_bytes{fstype!=\"tmpfs\", mountpoint!=\"/boot\"} / node_filesystem_size_bytes{fstype!=\"tmpfs\", mountpoint!=\"/boot\"}) * 100 > 60
+        expr: (node_filesystem_used_bytes{fstype!="tmpfs", mountpoint!="/boot"} / node_filesystem_size_bytes{fstype!="tmpfs", mountpoint!="/boot"}) * 100 > 60
         for: 1m
         labels:
           severity: critical
         annotations:
           summary: "High Disk Usage on {{ $labels.instance }}"
-          description: "Disk usage exceeded."
+          description: "Disk usage exceeded."        
 
 
 
