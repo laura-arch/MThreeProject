@@ -5,6 +5,87 @@
 
 # 💻 How to use:
 
+# Install Docker
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo service docker start
+```
+
+# Install Kubernetes (Minikube)
+```
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-arm64
+sudo install minikube-linux-arm64 /usr/local/bin/minikube && rm minikube-linux-arm64
+minikube start
+```
+
+# Clone Project
+```
+yum install git
+git clone https://github.com/laura-arch/MThreeProject.git
+```
+# Build Dockerfile
+Dockerfile
+```
+FROM redhat/ubi8:latest
+
+COPY . .
+
+RUN dnf update -y
+RUN dnf install -y python3.12 python3-pip
+# RUN dnf install -y iperf3
+# RUN dnf install -y stress-ng 
+RUN pip3 install mysql-connector-python
+
+CMD ["python3", "stresstest.py"]
+```
+
+Build
+```
+docker login
+docker build . -t lauraarch/stresstest:latest
+docker push lauraarch/stresstest:latest
+```
+
+# Run in Kubernetes
+stresstest-manifest.yaml
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stresstest-dp
+  labels:
+    app: stresstest
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stresstest
+  template:
+    metadata:
+      labels:
+        app: stresstest
+    spec:
+      containers:
+      - name: stresstest
+        image: lauraarch/stresstest:latest
+        imagePullPolicy: Always
+```
+
+```
+minikube kubectl -- apply -f stresstest-manifest.yaml
+```
+
+# Shell into pod
+```
+minikube kubectl -- get pods
+```
+
+
+```
+minikube kubectl -- exec -it stresstest-dp-xyz -- /bin/bash
+```
+
 ## How to run stress tests
 - create a database on VM 2 called test
   - CREATE USER 'user'@'%' IDENTIFIED BY 'YourPassword';
