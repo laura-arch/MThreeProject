@@ -44,6 +44,10 @@
 
 https://manpages.ubuntu.com/manpages/xenial/man1/stress-ng.1.html 
 
+## Part 3 Stress test alerts: 
+![image](https://github.com/user-attachments/assets/f20b82fa-2f94-439a-a7c2-df64dd390387)
+
+
 ## Part 5: Configuration Management using Ansible
 
 - Yum install ansible
