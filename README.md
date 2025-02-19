@@ -54,26 +54,26 @@ https://manpages.ubuntu.com/manpages/xenial/man1/stress-ng.1.html
 
 ## Part 6: Containerising our Python script using Docker
 
-# Install Docker
+### Install Docker
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo service docker start
 ```
 
-# Install Kubernetes (Minikube)
+### Install Kubernetes (Minikube)
 ```
 curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-arm64
 sudo install minikube-linux-arm64 /usr/local/bin/minikube && rm minikube-linux-arm64
 minikube start
 ```
 
-# Clone Project
+### Clone Project
 ```
 yum install git
 git clone https://github.com/laura-arch/MThreeProject.git
 ```
-# Build Dockerfile
+### Build Dockerfile
 Dockerfile
 ```
 FROM redhat/ubi8:latest
@@ -96,7 +96,7 @@ docker build . -t lauraarch/stresstest:latest
 docker push lauraarch/stresstest:latest
 ```
 
-# Run in Kubernetes
+### Run in Kubernetes
 stresstest-manifest.yaml
 ```
 apiVersion: apps/v1
@@ -125,7 +125,7 @@ spec:
 minikube kubectl -- apply -f stresstest-manifest.yaml
 ```
 
-# Shell into pod
+### Shell into pod
 ```
 minikube kubectl -- get pods
 ```
@@ -149,6 +149,7 @@ can create a systemd file instead running like this ^^
 
 ### Setting Up Prometheus/Grafana
 - Edit prometheus yaml file to add node_exporter IP address and port number and mysqld_exporter IP address and port number
+
 ![image](https://github.com/user-attachments/assets/32946f96-b974-451e-87d3-8fc8ace67d8f)
 
 - Run Grafana on VM
