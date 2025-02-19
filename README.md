@@ -49,6 +49,13 @@ https://manpages.ubuntu.com/manpages/xenial/man1/stress-ng.1.html
 ![image](https://github.com/user-attachments/assets/f20b82fa-2f94-439a-a7c2-df64dd390387)
 
 
+## Part 4 Jenkins Pipeline: 
+
+Created Jenkins pipeline to automate building and deploying of script on github
+
+![image](https://github.com/user-attachments/assets/31e84994-89c6-4bf3-8bba-511e4d72a595)
+
+
 ## Part 5: Configuration Management using Ansible
 
 - Yum install ansible
@@ -183,6 +190,13 @@ can create a systemd file instead running like this ^^
 - Run Grafana on VM
 - On Grafana, add data source with Prometheus IP address, add node_exporter and mysqld_exporter dashboard
   
+node_exporter dashboard:
+
+![image](https://github.com/user-attachments/assets/3797fb29-2d1d-48d7-897b-da2a45da0ff0)
+
+mysqld_exporter dashbaord:
+
+![image](https://github.com/user-attachments/assets/77812b1d-539e-4168-b66f-024f0c1ce740)
 
 
   
