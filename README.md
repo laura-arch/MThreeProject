@@ -134,3 +134,26 @@ minikube kubectl -- get pods
 ```
 minikube kubectl -- exec -it stresstest-dp-xyz -- /bin/bash
 ```
+## Part 7 Prometheus / Grafana with Node_exporter and Mysqld_exporter: 
+### Installing and Configuring Exporters for Prometheus/Grafana
+- install mysqld_exporter on VM1 in /usr/local/bin/ directory
+- install node_exporter on VM1 in /usr/local/bin directory 
+- run node_exporter (make sure you have execution rights)
+
+Need to configure mysqld_exporter to link the database in VM2:
+- nano /etc/.mysqld_exporter.cnf
+- chmod 600 /etc/.mysqld_exporter.cnf
+Run the mysqld exporter with config 
+- mysqld_exporter --config.my-cnf=/etc/.mysqld_exporter.cnf
+can create a systemd file instead running like this ^^
+
+### Setting Up Prometheus/Grafana
+- Edit prometheus yaml file to add node_exporter IP address and port number and mysqld_exporter IP address and port number
+![image](https://github.com/user-attachments/assets/32946f96-b974-451e-87d3-8fc8ace67d8f)
+
+- Run Grafana on VM
+- On Grafana, add data source with Prometheus IP address, add node_exporter and mysqld_exporter dashboard
+  
+
+
+  
