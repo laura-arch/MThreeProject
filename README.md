@@ -33,6 +33,7 @@
 
 ## Part 2: Stress Testing
 
+- In vm1
 - Install stress-ng with ‘yum install stress-ng’
 - Write a python script
 - Yum install git
