@@ -180,7 +180,7 @@ Execution rights on file:
 
 Run the mysqld exporter with config file
 - mysqld_exporter --config.my-cnf=/etc/.mysqld_exporter.cnf
-can create a systemd file instead running like this ^^
+can create a systemd file instead of running like this ^^
 
 ### Setting Up Prometheus/Grafana
 - Edit prometheus yaml file to add node_exporter IP address and port number and mysqld_exporter IP address and port number
@@ -198,5 +198,17 @@ mysqld_exporter dashbaord:
 
 ![image](https://github.com/user-attachments/assets/77812b1d-539e-4168-b66f-024f0c1ce740)
 
+## Part 9: Log Analysis and Suggestions - Integration with WhatsApp:
 
-  
+### Dependicies to install:
+- `pip install google google-generativeai`
+- `pip install twilio`
+- `pip install dotenv`
+- `pip install --upgrade grpcio absl-py`
+
+### SetUp
+- Get API key at Google AI Studio
+- Get Twilio API key and setup alerts to WhatsApp on Twilio website
+- In the directory of your python script, create and .env file to store all API keys needed
+- Replace all keys with your own corresponding keys
+ 
