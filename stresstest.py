@@ -1,6 +1,5 @@
 import os
 import time
-import threading
 import random
 import mysql.connector
 import subprocess
@@ -10,10 +9,6 @@ MYSQL_HOST = "VM2"
 MYSQL_USER = "stressUser"
 MYSQL_PASS = "Sadika"
 MYSQL_DB = "test"
-NUM_THREADS = 5
-
-# Number of concurrent threads for MySQL stress testing
-NUM_THREADS = 8
 
 def memory_stress():
     print("\n[INFO] Running Memory Stress Test...")
@@ -27,9 +22,6 @@ def disk_stress():
     print("\n[INFO] Disk Stress Test Completed.")
 
 def network_stress():
-   #print("\n[INFO] Running Network Stress Test...")
-   #os.system("iperf3 -c localhost -u -b 100M -t 30")
-   #print("\n[INFO] Network Stress Test Completed.")
     print("\n[INFO] Running Network Stress Test...")
     # Start iperf3 server in the background
     server_process = subprocess.Popen(["iperf3", "-s"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -51,70 +43,45 @@ def cpu_stress():
     os.system("stress-ng --cpu 4 --timeout 30s")
     print("\n[INFO] CPU Stress Test Completed.")
 
+
 def mysql_stress():
     print("\n[INFO] Running MySQL Stress Test...")
+    try:
+        conn = mysql.connector.connect(
+            host=MYSQL_HOST,
+            user=MYSQL_USER,
+            password=MYSQL_PASS,
+            database=MYSQL_DB
+        )
+        cursor = conn.cursor()
 
-    def stress_test():
-        try:
-            conn = mysql.connector.connect(
-                host=MYSQL_HOST,
-                user=MYSQL_USER,
-                password=MYSQL_PASS,
-                database=MYSQL_DB
-            )
-            cursor = conn.cursor()
+        for _ in range(80):  # Total queries (same as 8 threads * 10 queries)
+            query_type = random.choice(["INSERT", "UPDATE", "SELECT"])
 
-            for _ in range(10):
-                query_type = random.choice(["INSERT", "UPDATE", "SELECT"])
+            if query_type == "INSERT":
+                cursor.execute("INSERT INTO stress_table (name, value) VALUES ('Test', %s)", (random.randint(1, 10000),))
+            elif query_type == "UPDATE":
+                cursor.execute("""
+                    UPDATE stress_table AS t1
+                    JOIN (SELECT id FROM stress_table ORDER BY RAND() LIMIT 1) AS t2
+                    ON t1.id = t2.id
+                    SET t1.value = t1.value + 1
+		""")
+            elif query_type == "SELECT":
+                cursor.execute("SELECT * FROM stress_table ORDER BY RAND() LIMIT 10")
+                cursor.fetchall()
 
-                # Retry mechanism for deadlock error
-                retries = 3
-                while retries > 0:
-                    try:
-                        if query_type == "INSERT":
-                            cursor.execute(f"INSERT INTO stress_table (name, value) VALUES ('Test', {random.randint(1, 10000)})")
-                        elif query_type == "UPDATE":
-                            cursor.execute("""
-                                UPDATE stress_table
-                                JOIN (SELECT id FROM stress_table ORDER BY RAND() LIMIT 1) AS random_row
-                                ON stress_table.id = random_row.id
-                                SET stress_table.value = stress_table.value + 1
-                            """)
-                        elif query_type == "SELECT":
-                            cursor.execute("SELECT * FROM stress_table ORDER BY RAND() LIMIT 10")
-                            cursor.fetchall()
+            conn.commit()
+            time.sleep(0.1)
 
-                        conn.commit()
-                        break  # Exit the retry loop on successful execution
-                    except mysql.connector.Error as e:
-                        if e.errno == 1213:  # Deadlock error
-                            print("[INFO] Deadlock detected, retrying transaction...")
-                            retries -= 1
-                            time.sleep(1)  # Wait before retrying
-                        else:
-                            print(f"[ERROR] MySQL Error: {e}")
-                            break  # Exit the loop if it's a different error
-                else:
-                    print("[INFO] Max retries reached, skipping this operation.")
-
-                time.sleep(0.1)  # Simulate real workload
-
-            cursor.close()
-            conn.close()
-        except Exception as e:
-            print(f"Error: {e}")
-
-    # Start multiple threads for MySQL stress testing
-    threads = []
-    for _ in range(NUM_THREADS):
-        thread = threading.Thread(target=stress_test)
-        thread.start()
-        threads.append(thread)
-
-    for thread in threads:
-        thread.join()
+        cursor.close()
+        conn.close()
+    except mysql.connector.Error as e:
+        print(f"[ERROR] MySQL Error: {e}")
 
     print("\n[INFO] MySQL Stress Test Completed.")
+
+
 def main():
     while True:
         print("\n=== Stress Testing Menu ===")
