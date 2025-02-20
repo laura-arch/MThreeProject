@@ -214,6 +214,6 @@ mysqld_exporter dashbaord:
 
 Example on WhatsApp:
 
-![Screenshot_20250220_175810_WhatsApp](https://github.com/user-attachments/assets/4a3a4755-f652-4816-88c7-398512d0ac4b)
+![image](https://github.com/user-attachments/assets/c320ef29-e71b-4a8f-931f-8fcf9ff5bb05)
 
 
