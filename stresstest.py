@@ -3,6 +3,10 @@ import time
 import random
 import mysql.connector
 import subprocess
+import logging
+
+# Configure logging
+logging.basicConfig(filename="stress_test_logs.txt", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # MySQL Connection Details (vm_2)
 MYSQL_HOST = "VM2"
@@ -10,19 +14,36 @@ MYSQL_USER = "stressUser"
 MYSQL_PASS = "Sadika"
 MYSQL_DB = "test"
 
+def log_and_print(message):
+    print(message)
+    logging.info(message)
+
+def log_warning(message):
+    print(message)
+    logging.warning(message)
+
+def log_error(message):
+    print(message)
+    logging.error(message)
+
+def log_critical(message):
+    print(message)
+    logging.critical(message)
+
+
 def memory_stress():
-    print("\n[INFO] Running Memory Stress Test...")
+    log_and_print("Running Memory Stress Test...")
     os.system("stress-ng --vm 2 --vm-bytes 512M --timeout 30s")
-    print("\n[INFO] Memory Stress Test Completed.")
+    log_and_print("Memory Stress Test Completed.")
 
 def disk_stress():
-    print("\n[INFO] Running Disk Stress Test...")
+    log_and_print("Running Disk Stress Test...")
     os.system("dd if=/dev/zero of=/tmp/stress_test_file bs=1M count=1000")
     os.system("rm -f /tmp/stress_test_file")
-    print("\n[INFO] Disk Stress Test Completed.")
+    log_and_print("Disk Stress Test Completed.")
 
 def network_stress():
-    print("\n[INFO] Running Network Stress Test...")
+    log_and_print("Running Network Stress Test...")
     # Start iperf3 server in the background
     server_process = subprocess.Popen(["iperf3", "-s"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -35,17 +56,17 @@ def network_stress():
     # Terminate the server after test is done
     server_process.terminate()
 
-    print("\n[INFO] Network Stress Test Completed.")
+    log_and_print("Network Stress Test Completed.")
     return result
 
 def cpu_stress():
-    print("\n[INFO] Running CPU Stress Test...")
+    log_and_print("Running CPU Stress Test...")
     os.system("stress-ng --cpu 4 --timeout 30s")
-    print("\n[INFO] CPU Stress Test Completed.")
+    log_and_print("CPU Stress Test Completed.")
 
 
 def mysql_stress():
-    print("\n[INFO] Running MySQL Stress Test...")
+    log_and_print("Running MySQL Stress Test...")
     try:
         conn = mysql.connector.connect(
             host=MYSQL_HOST,
@@ -77,9 +98,9 @@ def mysql_stress():
         cursor.close()
         conn.close()
     except mysql.connector.Error as e:
-        print(f"[ERROR] MySQL Error: {e}")
+        log_error("MySQL Error: connection error")
 
-    print("\n[INFO] MySQL Stress Test Completed.")
+    log_and_print("MySQL Stress Test Completed.")
 
 
 def main():
@@ -105,10 +126,10 @@ def main():
         elif choice == '5':
             mysql_stress()
         elif choice == '6':
-            print("\n[INFO] Exiting Stress Testing Script.")
+            log_and_print("Exiting Stress Testing Script.")
             break
         else:
-            print("\n[ERROR] Invalid choice! Please enter a number between 1-6.")
+            log_error("Invalid choice! Please enter a number between 1-6.")
 
 if __name__ == "__main__":
     main()
