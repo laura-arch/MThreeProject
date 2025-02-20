@@ -211,4 +211,9 @@ mysqld_exporter dashbaord:
 - Get Twilio API key and setup alerts to WhatsApp on Twilio website
 - In the directory of your python script, create and .env file to store all API keys needed
 - Replace all keys with your own corresponding keys
- 
+
+Example on WhatsApp:
+
+![Screenshot_20250220_175810_WhatsApp](https://github.com/user-attachments/assets/4a3a4755-f652-4816-88c7-398512d0ac4b)
+
+
