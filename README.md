@@ -200,7 +200,7 @@ mysqld_exporter dashbaord:
 
 ## Part 9: Log Analysis and Suggestions - Integration with WhatsApp:
 
-### Dependicies to install:
+### Dependencies to install:
 - `pip install google google-generativeai`
 - `pip install twilio`
 - `pip install dotenv`
