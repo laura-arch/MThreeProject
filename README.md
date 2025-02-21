@@ -33,7 +33,7 @@
 
 ## Part 2: Stress Testing
 
-- In vm1
+In vm1
 - Install stress-ng with ‘yum install stress-ng’
 - Write a python script
 - Yum install git
@@ -47,6 +47,19 @@ https://manpages.ubuntu.com/manpages/xenial/man1/stress-ng.1.html
 ## Part 3 Stress test alerts: 
 
 ![image](https://github.com/user-attachments/assets/f20b82fa-2f94-439a-a7c2-df64dd390387)
+
+Example of alerts when running test:
+Inactive: When no threshold exceeded
+
+![image](https://github.com/user-attachments/assets/19254e0a-8dc0-44c7-aeb5-9fa50e4ba8cf)
+
+Pending: When threshold has exceeded
+
+![image](https://github.com/user-attachments/assets/e3945aa7-9726-41af-9bab-100033034ec4)
+
+Firing: When threshold has exceeded over time limit set
+
+![image](https://github.com/user-attachments/assets/21199740-8c48-4d1e-b884-bc4da9c9c680)
 
 
 ## Part 4 Jenkins Pipeline: 
@@ -180,7 +193,7 @@ Execution rights on file:
 
 Run the mysqld exporter with config file
 - mysqld_exporter --config.my-cnf=/etc/.mysqld_exporter.cnf
-can create a systemd file instead of running like this ^^
+- can create a systemd file instead of running mysqld_exporter with config file
 
 ### Setting Up Prometheus/Grafana
 - Edit prometheus yaml file to add node_exporter IP address and port number and mysqld_exporter IP address and port number
@@ -197,6 +210,29 @@ node_exporter dashboard:
 mysqld_exporter dashbaord:
 
 ![image](https://github.com/user-attachments/assets/77812b1d-539e-4168-b66f-024f0c1ce740)
+
+
+## Part 8: Email notifications when alerts are in firing state:
+- Set up 2FA on gmail account
+- Go to App Passwords to create an App Password - make sure to store the password on local device
+Example:
+
+![image](https://github.com/user-attachments/assets/d28e738d-16b4-4df1-bd83-8b963dbc2615)
+
+### Set up alert configuration file
+#### Used this link to help set up email notifications: https://signoz.io/guides/how-do-i-add-alerts-to-prometheus/
+- create a config file in alert manager directory (make sure its a different filename to the other ones)
+- paste this code in:
+
+![image](https://github.com/user-attachments/assets/35ec804c-5ecb-4d01-809b-00c0f0584ecb)
+
+- Paste and replace with your gmail account and App Password that you created earlier:
+
+![image](https://github.com/user-attachments/assets/ae7fff11-9cb7-4c7c-974b-80e009f26729)
+
+- Lastly run the alertmanager with config file
+  - `./alertmanager --config.file=alertmanager.yml`
+ 
 
 ## Part 9: Log Analysis and Suggestions - Integration with WhatsApp:
 
