@@ -232,7 +232,17 @@ Example:
 
 - Lastly run the alertmanager with config file
   - `./alertmanager --config.file=alertmanager.yml`
- 
+
+- Now you will receive an email when alert is in firing state:
+
+title:
+
+![image](https://github.com/user-attachments/assets/f4df3f4e-5af6-442f-902b-f26cc9b19dbb)
+
+Content:
+
+![image](https://github.com/user-attachments/assets/ef4bb95f-0c33-420e-a021-860bbf8e8627)
+
 
 ## Part 9: Log Analysis and Suggestions - Integration with WhatsApp:
 
