@@ -155,8 +155,8 @@ def mysql_stress():
         )
         #cursor object to execute SQL queries
         cursor = conn.cursor()
-        #stimulates 80 queries
-        for _ in range(80):
+        #stimulates 500 queries
+        for _ in range(500):
             #randomly chooses a query
             query_type = random.choice(["INSERT", "UPDATE", "SELECT"])
 
