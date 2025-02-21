@@ -49,15 +49,15 @@ https://manpages.ubuntu.com/manpages/xenial/man1/stress-ng.1.html
 ![image](https://github.com/user-attachments/assets/f20b82fa-2f94-439a-a7c2-df64dd390387)
 
 Example of alerts when running test:
-Inactive: When no threshold exceeded
+Inactive: When no threshold has been exceeded
 
 ![image](https://github.com/user-attachments/assets/19254e0a-8dc0-44c7-aeb5-9fa50e4ba8cf)
 
-Pending: When threshold has exceeded
+Pending: When threshold has been exceeded
 
 ![image](https://github.com/user-attachments/assets/e3945aa7-9726-41af-9bab-100033034ec4)
 
-Firing: When threshold has exceeded over time limit set
+Firing: When threshold has been exceeded over time limit set
 
 ![image](https://github.com/user-attachments/assets/21199740-8c48-4d1e-b884-bc4da9c9c680)
 
