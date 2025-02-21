@@ -57,7 +57,7 @@ Pending: When threshold has been exceeded
 
 ![image](https://github.com/user-attachments/assets/e3945aa7-9726-41af-9bab-100033034ec4)
 
-Firing: When threshold has been exceeded over time limit set
+Firing: When threshold has been exceeded over time limit
 
 ![image](https://github.com/user-attachments/assets/21199740-8c48-4d1e-b884-bc4da9c9c680)
 
