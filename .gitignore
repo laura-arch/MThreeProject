@@ -3,6 +3,8 @@ VM2key
 VM0key.pub
 VM2key.pub
 
+.env
+stress_test_logs.txt
 promtool
 
 
