@@ -22,7 +22,18 @@
   - MYSQL_HOST should point to the IP address for your own VM2
 - run `python stresstest.py`
 
-
+### To quickly setup VMs after following our steps:
+- Run 3 instances of VM1 to run:
+  - mysqld_exporter with config file
+  - node_exporter
+  - the python script
+- Run 3 instances of VM0 to run:
+  - Alert manager (has to be on prometheus node)
+  - Grafana must be started to see dashboard 
+  - Prometheus 
+- Run 1 instance of VM2 to run:
+  - mysql server
+ 
 
 # Our Steps:
 
